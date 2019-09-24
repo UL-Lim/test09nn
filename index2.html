@@ -1,0 +1,179 @@
+<!DOCTYPE HTML>
+<html><head>
+	<title>color picker</title>
+
+<style type="text/css">
+<!--
+div.maxcolorbar	{width:255px;height:16px;position:relative;top:0px;left:0px}
+div.colorbar	{width:255px;height:16px;cursor:hand}
+-->
+</style>
+</head>
+
+<body>
+
+<form method="get" action="page2.html">
+<table border="0" cellspacing="1" cellpadding="3" align="center" unselectable="on" bgcolor="999999">
+<tbody><tr bgcolor="white">
+	<td colspan="4" align="center" id="ttt"></td>
+</tr>
+
+<tr bgcolor="white">
+	<th style="color:#FF0000">Red</th>
+	<td><input type="text" onchange="r='r';checkb()" size="3" maxlength="3" name="r1" value="0"></td>
+	<td>
+		<div class="maxcolorbar">
+		<div style="background-color:#800000" id="crb" class="colorbar" onmousedown="r='r';checkc(event)" onmousemove="m(event)" onmouseup="y=''" onselectstart="return false">
+		<div style="background-color:#FF0000;width:0px;height:16px" id="rb"></div></div></div>
+	</td>
+</tr>
+<tr bgcolor="white">
+	<th style="color:#00FF00">Green</th>
+	<td><input type="text" onchange="r='g';checkb()" size="3" maxlength="3" name="g1" value="0"></td>
+	<td>
+		<div class="maxcolorbar">
+		<div style="background-color:#008000" id="cgb" class="colorbar" onmousedown="r='g';checkc(event)" onmousemove="m(event)" onmouseup="y=''" onselectstart="return false">
+		<div style="background-color: rgb(0, 255, 0); width: 0px; height: 16px;" id="gb"></div></div></div>
+	</td>
+</tr>
+<tr bgcolor="white">
+	<th style="color:#0000FF">Blue</th>
+	<td><input type="text" onchange="r='b';checkb()" size="3" maxlength="3" name="b1" value="0"></td>
+	<td><div class="maxcolorbar">
+		<div style="background-color:#000080" id="cbb" class="colorbar" onmousedown="r='b';checkc(event)" onmousemove="m(event)" onmouseup="y=''" onselectstart="return false ">
+		<div style="background-color: rgb(0, 0, 255); width: 0px; height: 16px;" id="bb"></div></div></div>
+	</td>
+</tr>
+<tr bgcolor="white">
+	<th>색상값</th>
+	<td colspan="2"><input type="text" onchange="check()" size="41" maxlength="8" name="tot" value="000000"></td>
+</tr>
+</tbody></table>
+
+            <table>
+                <tr>
+                    <td>liightTwo:</td>
+                    <td><input type="range" name="liightTwo" size="10" min="0" max="1000"></td>
+                </tr>
+                <tr>
+                    <td>teexture:</td>
+                    <td><input type="range" name="teexture" size="10" min="0" max="1000"></td>
+                </tr>
+                <tr>
+                    <td>allpha:</td>
+                    <td><input type="range" name="allpha" size="10" min="100" max="1000"></td>
+                </tr>
+				<tr>
+                    <td>diistortionScale:</td>
+                    <td><input type="range" name="diistortionScale" size="10" min="0" max="1000"></td>
+                </tr>
+				<tr>
+                    <td>tuurbidity:</td>
+                    <td><input type="range" name="tuurbidity" size="10" min="0" max="1000"></td>
+                </tr>
+				<tr>
+                    <td>raayleigh:</td>
+                    <td><input type="range" name="raayleigh" size="10" min="0" max="100"></td>
+                </tr>
+				<tr>
+                    <td>luuminance:</td>
+                    <td><input type="range" name="luuminance" size="10" min="0" max="1000"></td>
+                </tr>
+				<tr>
+                    <td>miieCoefficient:</td>
+                    <td><input type="range" name="miieCoefficient" size="10" min="0" max="1000"></td>
+                </tr>
+				<tr>
+                    <td>miieDirectionalG:</td>
+                    <td><input type="range" name="miieDirectionalG" size="10" min="0" max="1000"></td>
+                </tr>
+				<tr>
+                    <td>diistance:</td>
+                    <td><input type="range" name="diistance" size="10" min="0" max="1000"></td>
+                </tr><tr>
+                    <td>innclination:</td>
+                    <td><input type="range" name="innclination" size="10" min="0" max="1000"></td>
+                </tr>
+				<tr>
+                    <td>azzimuth:</td>
+                    <td><input type="range" name="azzimuth" size="10" min="0" max="1000"></td>
+				</tr>
+				<tr>
+                    <td>colour:</td>
+                    <td><input type="text" name="colour" size="10"></td>
+				</tr>
+                <tr>
+                    <td colspan="2"><input type="submit" value="Submit">
+                    </td>
+                </tr>
+            </table>
+        </form>
+<script lagnuage="javascript" type="text/javascript">
+<!--
+var r;
+var y="";
+var RB=document.getElementById?document.getElementById("rb"):document.all.rb;
+var GB=document.getElementById?document.getElementById("gb"):document.all.gb;
+var BB=document.getElementById?document.getElementById("bb"):document.all.bb;
+var TOT=document.forms.color.tot;
+var TTT=document.getElementById?document.getElementById("ttt"):document.all.ttt;
+var mycolor=new Object();
+
+function numtohex(input){
+var t="0123456789ABCDEF";
+return (t.charAt(input>>4)+t.charAt(input%16));}
+
+function s(){
+	document.forms.color.r1.value=mycolor.r;
+	document.forms.color.g1.value=mycolor.g;
+	document.forms.color.b1.value=mycolor.b;
+	RB.style.width=mycolor.r+"px";
+	GB.style.width=mycolor.g+"px";
+	BB.style.width=mycolor.b+"px";
+	TOT.value="0x"+numtohex(mycolor.r)+numtohex(mycolor.g)+numtohex(mycolor.b);
+	TTT.style.backgroundColor=TOT.value;}
+	
+var colorV=numtohex(mycolor.r)+numtohex(mycolor.g)+numtohex(mycolor.b);
+
+function check(){
+var i=TOT.value.toString();
+	if(i.charAt(0)=="0x")i=i.substr(1,6);
+	while(i.length<6)i+="0";
+		i=i.toUpperCase();
+var r=i.substr(0,2);
+var g=i.substr(2,2);
+var b=i.substr(4,2);
+	if(!r.match(/[^0-9a-fA-F]/i))mycolor.r=parseInt(r,16);
+	if(!g.match(/[^0-9a-fA-F]/i))mycolor.g=parseInt(g,16);
+	if(!b.match(/[^0-9a-fA-F]/i))mycolor.b=parseInt(b,16);
+		s();}
+
+function checka(){
+var i=document.forms.color[r+"2"].value;
+while(i.toString().length<2)i="0"+i;
+	i=i.toUpperCase();
+if(!i.match(/[^0-9a-fA-F]/i))mycolor[r]=parseInt(i,16);
+	s();}
+
+function checkb(){
+var i=document.forms.color[r+"1"].value
+	if(isNaN(i))i=mycolor[r]
+	if(Number(i)>255)i=255
+	if(Number(i)<0)i=0
+		mycolor[r]=i
+		s()}
+
+function checkc(e){
+	if(!e)e=event
+	if(y==""){
+		y=r
+		mycolor[r]=parseInt(document.all?e.offsetX:e.layerX)
+		s()}}
+
+-->
+</script>
+
+
+
+
+</body></html>
